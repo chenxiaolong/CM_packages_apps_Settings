@@ -55,6 +55,7 @@ import com.android.settings.hardware.DisplayGamma;
 
 import org.cyanogenmod.hardware.AdaptiveBacklight;
 import org.cyanogenmod.hardware.ColorEnhancement;
+import org.cyanogenmod.hardware.HighTouchSensitivity;
 import org.cyanogenmod.hardware.SunlightEnhancement;
 import org.cyanogenmod.hardware.TapToWake;
 
@@ -90,6 +91,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String KEY_DISPLAY_COLOR = "color_calibration";
     private static final String KEY_DISPLAY_GAMMA = "gamma_tuning";
     private static final String KEY_SCREEN_COLOR_SETTINGS = "screencolor_settings";
+    private static final String KEY_AUTO_ADJUST_TOUCH = "auto_adjust_touch";
 
     private static final int DLG_GLOBAL_CHANGE_WARNING = 1;
 
@@ -120,6 +122,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private CheckBoxPreference mSunlightEnhancement;
     private CheckBoxPreference mColorEnhancement;
     private CheckBoxPreference mTapToWake;
+    private CheckBoxPreference mHighTouchSensitivity;
 
     private ContentObserver mAccelerometerRotationObserver =
             new ContentObserver(new Handler()) {
@@ -284,6 +287,12 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             }
         } else {
             advancedPrefs.removePreference(mScreenAnimationStylePreference);
+        }
+
+        mHighTouchSensitivity = (CheckBoxPreference) findPreference(KEY_AUTO_ADJUST_TOUCH);
+        if (!isHighTouchSensitivitySupported()) {
+            getPreferenceScreen().removePreference(mHighTouchSensitivity);
+            mHighTouchSensitivity = null;
         }
 
         boolean hasNotificationLed = res.getBoolean(
@@ -596,6 +605,8 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             return true;
         } else if (preference == mTapToWake) {
             return TapToWake.setEnabled(mTapToWake.isChecked());
+        } else if (preference == mHighTouchSensitivity) {
+            return HighTouchSensitivity.setEnabled(mHighTouchSensitivity.isChecked());
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
@@ -755,6 +766,15 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static boolean isTapToWakeSupported() {
         try {
             return TapToWake.isSupported();
+        } catch (NoClassDefFoundError e) {
+            // Hardware abstraction framework not installed
+            return false;
+        }
+    }
+
+    private static boolean isHighTouchSensitivitySupported() {
+        try {
+            return HighTouchSensitivity.isSupported();
         } catch (NoClassDefFoundError e) {
             // Hardware abstraction framework not installed
             return false;

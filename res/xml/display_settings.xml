@@ -81,6 +81,12 @@
 
         </PreferenceCategory>
 
+        <CheckBoxPreference
+            android:key="auto_adjust_touch"
+            android:title="@string/auto_adjust_touch_title"
+            android:summary="@string/auto_adjust_touch_summary"
+            android:defaultValue="false" />
+
         <PreferenceCategory
             android:key="lights_prefs"
             android:title="@string/lights_category_title">
