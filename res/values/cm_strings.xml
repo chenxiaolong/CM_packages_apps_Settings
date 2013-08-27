@@ -14,6 +14,9 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Glove mode / high touch sensitivity -->
+    <string name="auto_adjust_touch_title">High touch sensitivity</string>
+    <string name="auto_adjust_touch_summary">"Increase the screen's sensitivity so you can touch it while wearing gloves"</string>
     <!-- Sound settings screen -->
     <string name="ring_mode_title">Ring mode</string>
     <string name="ring_mode_normal">Normal</string>
