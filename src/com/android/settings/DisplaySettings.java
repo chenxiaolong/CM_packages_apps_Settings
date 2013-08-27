@@ -48,6 +48,8 @@ import android.util.Log;
 import com.android.internal.view.RotationPolicy;
 import com.android.settings.DreamSettings;
 
+import org.cyanogenmod.hardware.HighTouchSensitivity;
+
 import java.util.ArrayList;
 
 public class DisplaySettings extends SettingsPreferenceFragment implements
@@ -66,6 +68,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String CATEGORY_LIGHTS = "lights_prefs";
     private static final String KEY_NOTIFICATION_PULSE = "notification_pulse";
     private static final String KEY_BATTERY_LIGHT = "battery_light";
+    private static final String KEY_AUTO_ADJUST_TOUCH = "auto_adjust_touch";
 
     private static final int DLG_GLOBAL_CHANGE_WARNING = 1;
 
@@ -84,6 +87,8 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
 
     private WifiDisplayStatus mWifiDisplayStatus;
     private Preference mWifiDisplayPreference;
+
+    private CheckBoxPreference mHighTouchSensitivity;
 
     private final RotationPolicy.RotationPolicyListener mRotationPolicyListener =
             new RotationPolicy.RotationPolicyListener() {
@@ -138,6 +143,12 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
                 == WifiDisplayStatus.FEATURE_STATE_UNAVAILABLE) {
             getPreferenceScreen().removePreference(mWifiDisplayPreference);
             mWifiDisplayPreference = null;
+        }
+
+        mHighTouchSensitivity = (CheckBoxPreference) findPreference(KEY_AUTO_ADJUST_TOUCH);
+        if (!isHighTouchSensitivitySupported()) {
+            getPreferenceScreen().removePreference(mHighTouchSensitivity);
+            mHighTouchSensitivity = null;
         }
 
         boolean hasNotificationLed = res.getBoolean(
@@ -380,6 +391,8 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         if (preference == mAccelerometer) {
             RotationPolicy.setRotationLockForAccessibility(
                     getActivity(), !mAccelerometer.isChecked());
+        } else if (preference == mHighTouchSensitivity) {
+            return HighTouchSensitivity.setEnabled(mHighTouchSensitivity.isChecked());
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
@@ -424,5 +437,14 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             }
         }
         return false;
+    }
+
+    private static boolean isHighTouchSensitivitySupported() {
+        try {
+            return HighTouchSensitivity.isSupported();
+        } catch (NoClassDefFoundError e) {
+            // Hardware abstraction framework not installed
+            return false;
+        }
     }
 }
