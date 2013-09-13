@@ -298,6 +298,12 @@
             android:title="@string/show_all_anrs"
             android:summary="@string/show_all_anrs_summary"/>
 
+        <CheckBoxPreference
+            android:key="app_moving"
+            android:title="@string/app_moving"
+            android:summary="@string/app_moving_summary"
+            android:defaultValue="true"/>
+
      </PreferenceCategory>
 
 </PreferenceScreen>

@@ -68,6 +68,8 @@ import android.widget.TextView;
 
 import dalvik.system.VMRuntime;
 
+import org.cyanogenmod.hardware.AppMovingSettings;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -147,6 +149,8 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
 
     private static final String SHOW_ALL_ANRS_KEY = "show_all_anrs";
 
+    private static final String APP_MOVING = "app_moving";
+
     private static final String TAG_CONFIRM_ENFORCE = "confirm_enforce";
 
     private static final String PACKAGE_MIME_TYPE = "application/vnd.android.package-archive";
@@ -211,6 +215,7 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
     private ListPreference mAppProcessLimit;
 
     private CheckBoxPreference mShowAllANRs;
+    private CheckBoxPreference mAppMoving;
 
     private ListPreference mRootAccess;
     private Object mSelectedRootValue;
@@ -333,6 +338,9 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
                 SHOW_ALL_ANRS_KEY);
         mAllPrefs.add(mShowAllANRs);
         mResetCbPrefs.add(mShowAllANRs);
+
+        mAppMoving = findAndInitCheckboxPref(APP_MOVING);
+        mAppMoving.setChecked(AppMovingSettings.isEnabled());
 
         Preference selectRuntime = findPreference(SELECT_RUNTIME_KEY);
         if (selectRuntime != null) {
@@ -491,6 +499,8 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
             mEnabledSwitch.setChecked(mLastEnabledState);
             setPrefsEnabledState(mLastEnabledState);
         }
+
+        updateAppMovingOptions();
     }
 
     void updateCheckBox(CheckBoxPreference checkBox, boolean value) {
@@ -549,6 +559,7 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
         updateWifiDisplayCertificationOptions();
         updateRootAccessOptions();
         updateAdvancedRebootOptions();
+        updateAppMovingOptions();
     }
 
     private void resetAdvancedRebootOptions() {
@@ -721,6 +732,14 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
             hdcpChecking.setSummary(summaries[index]);
             hdcpChecking.setOnPreferenceChangeListener(this);
         }
+    }
+
+    private void writeAppMovingOptions() {
+        AppMovingSettings.setEnabled(mAppMoving.isChecked());
+    }
+
+    private void updateAppMovingOptions() {
+        mAppMoving.setChecked(AppMovingSettings.isEnabled());
     }
 
     private void updatePasswordSummary() {
@@ -1408,6 +1427,8 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
             writeWifiDisplayCertificationOptions();
         } else if (preference == mAdvancedReboot) {
             writeAdvancedRebootOptions();
+        } else if (preference == mAppMoving) {
+            writeAppMovingOptions();
         } else {
             return super.onPreferenceTreeClick(preferenceScreen, preference);
         }
