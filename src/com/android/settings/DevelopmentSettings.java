@@ -217,11 +217,8 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
     private ListPreference mAppProcessLimit;
 
     private CheckBoxPreference mShowAllANRs;
-<<<<<<< HEAD
-    private CheckBoxPreference mAppMoving;
-=======
     private CheckBoxPreference mKillAppLongpressBack;
->>>>>>> 4df1bcd4d20956f71b0e0799fec5fc9422e028f3
+    private CheckBoxPreference mAppMoving;
 
     private ListPreference mRootAccess;
     private Object mSelectedRootValue;
@@ -345,12 +342,10 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
         mAllPrefs.add(mShowAllANRs);
         mResetCbPrefs.add(mShowAllANRs);
 
-<<<<<<< HEAD
+        mKillAppLongpressBack = findAndInitCheckboxPref(KILL_APP_LONGPRESS_BACK);
+
         mAppMoving = findAndInitCheckboxPref(APP_MOVING);
         mAppMoving.setChecked(AppMovingSettings.isEnabled());
-=======
-        mKillAppLongpressBack = findAndInitCheckboxPref(KILL_APP_LONGPRESS_BACK);
->>>>>>> 4df1bcd4d20956f71b0e0799fec5fc9422e028f3
 
         Preference selectRuntime = findPreference(SELECT_RUNTIME_KEY);
         if (selectRuntime != null) {
@@ -510,11 +505,9 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
             setPrefsEnabledState(mLastEnabledState);
         }
 
-<<<<<<< HEAD
-        updateAppMovingOptions();
-=======
         updateKillAppLongpressBackOptions();
->>>>>>> 4df1bcd4d20956f71b0e0799fec5fc9422e028f3
+
+        updateAppMovingOptions();
     }
 
     void updateCheckBox(CheckBoxPreference checkBox, boolean value) {
@@ -748,14 +741,6 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
         }
     }
 
-<<<<<<< HEAD
-    private void writeAppMovingOptions() {
-        AppMovingSettings.setEnabled(mAppMoving.isChecked());
-    }
-
-    private void updateAppMovingOptions() {
-        mAppMoving.setChecked(AppMovingSettings.isEnabled());
-=======
     private void writeKillAppLongpressBackOptions() {
         Settings.Secure.putInt(getActivity().getContentResolver(),
                 Settings.Secure.KILL_APP_LONGPRESS_BACK,
@@ -765,7 +750,14 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
     private void updateKillAppLongpressBackOptions() {
         mKillAppLongpressBack.setChecked(Settings.Secure.getInt(
             getActivity().getContentResolver(), Settings.Secure.KILL_APP_LONGPRESS_BACK, 0) != 0);
->>>>>>> 4df1bcd4d20956f71b0e0799fec5fc9422e028f3
+    }
+
+    private void writeAppMovingOptions() {
+        AppMovingSettings.setEnabled(mAppMoving.isChecked());
+    }
+
+    private void updateAppMovingOptions() {
+        mAppMoving.setChecked(AppMovingSettings.isEnabled());
     }
 
     private void updatePasswordSummary() {
@@ -1453,13 +1445,10 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
             writeWifiDisplayCertificationOptions();
         } else if (preference == mAdvancedReboot) {
             writeAdvancedRebootOptions();
-<<<<<<< HEAD
-        } else if (preference == mAppMoving) {
-            writeAppMovingOptions();
-=======
         } else if (preference == mKillAppLongpressBack) {
             writeKillAppLongpressBackOptions();
->>>>>>> 4df1bcd4d20956f71b0e0799fec5fc9422e028f3
+        } else if (preference == mAppMoving) {
+            writeAppMovingOptions();
         } else {
             return super.onPreferenceTreeClick(preferenceScreen, preference);
         }
