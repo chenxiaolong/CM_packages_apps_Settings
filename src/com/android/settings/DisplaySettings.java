@@ -75,6 +75,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String KEY_NOTIFICATION_PULSE = "notification_pulse";
     private static final String KEY_BATTERY_LIGHT = "battery_light";
     private static final String KEY_AUTO_ADJUST_TOUCH = "auto_adjust_touch";
+    private static final String KEY_SHOW_BATTERY_PERCENTAGE = "show_battery_percentage";
 
     private static final int DLG_GLOBAL_CHANGE_WARNING = 1;
 
@@ -95,6 +96,8 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private Preference mWifiDisplayPreference;
 
     private CheckBoxPreference mHighTouchSensitivity;
+
+    private CheckBoxPreference mShowBatteryPercentage;
 
     private CheckBoxPreference mAdaptiveBacklight;
 
@@ -158,6 +161,10 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             getPreferenceScreen().removePreference(mHighTouchSensitivity);
             mHighTouchSensitivity = null;
         }
+
+        mShowBatteryPercentage = (CheckBoxPreference) findPreference(KEY_SHOW_BATTERY_PERCENTAGE);
+        final int showBattery = Settings.System.getInt(resolver, "status_bar_show_battery_percent", 0);
+        mShowBatteryPercentage.setChecked(showBattery == 1);
 
         mAdaptiveBacklight = (CheckBoxPreference) findPreference(KEY_ADAPTIVE_BACKLIGHT);
         if (!AdaptiveBacklight.isSupported()) {
@@ -398,6 +405,10 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             return HighTouchSensitivity.setEnabled(mHighTouchSensitivity.isChecked());
         } else if (preference == mAdaptiveBacklight) {
             return AdaptiveBacklight.setEnabled(mAdaptiveBacklight.isChecked());
+        } else if (preference == mShowBatteryPercentage) {
+            return Settings.System.putInt(getActivity().getContentResolver(),
+                    "status_bar_show_battery_percent",
+                    mShowBatteryPercentage.isChecked() ? 1 : 0);
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }

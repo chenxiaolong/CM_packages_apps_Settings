@@ -17,6 +17,11 @@
     <!-- Glove mode / high touch sensitivity -->
     <string name="auto_adjust_touch_title">High touch sensitivity</string>
     <string name="auto_adjust_touch_summary">"Increase the screen's sensitivity so you can touch it while wearing gloves"</string>
+
+    <!-- Show battery percentage -->
+    <string name="show_battery_percentage_title">Show battery percentage</string>
+    <string name="show_battery_percentage_summary">Overlay percentage on the battery icon in the status bar</string>
+
     <!-- Sound settings screen -->
     <string name="ring_mode_title">Ring mode</string>
     <string name="ring_mode_normal">Normal</string>
