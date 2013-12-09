@@ -62,6 +62,13 @@
     <string name="show_battery_percentage_title">Show battery percentage</string>
     <string name="show_battery_percentage_summary">Overlay percentage on the battery icon in the status bar</string>
 
+    <!-- Wi-Fi region code -->
+    <string name="wifi_setting_countrycode_title">Wi-Fi region code</string>
+    <!-- Wi-Fi settings screen, setting summary for setting the wifi frequency band [CHAR LIMIT=50]-->
+    <string name="wifi_setting_countrycode_summary">Specify the region code for Wi-Fi</string>
+    <!-- Wi-Fi settings screen, error message when the frequency band could not be set [CHAR LIMIT=50]. -->
+    <string name="wifi_setting_countrycode_error">There was a problem setting the region code.</string>
+
     <!-- Sound settings screen -->
     <string name="ring_mode_title">Ring mode</string>
     <string name="ring_mode_normal">Normal</string>
@@ -551,7 +558,6 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
 
     <!-- Change Log strings -->
     <string name="changelog_title">View changelog</string>
-    <string name="changelog_dialog">Changelog</string>
     <string name="changelog_loading">Loading changelog...</string>
     <string name="changelog_error">Unable to load changelog</string>
     <string name="changelog_unknown">Unknown</string>
@@ -857,10 +863,6 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="status_bar_style_hidden">Hidden</string>
     <string name="status_bar_battery_status_circle">Circle</string>
     <string name="status_bar_battery_status_circle_percentage">Circle with percentage</string>
-
-    <!-- AOSP dummy strings -->
-    <string name="experimental_webview"></string>
-    <string name="experimental_webview_summary"></string>
 
     <!--  development shortcut -->
     <string name="development_shortcut_title">Development shortcut</string>
