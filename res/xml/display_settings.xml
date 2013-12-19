@@ -63,12 +63,6 @@
             android:defaultValue="false" />
 
         <CheckBoxPreference
-            android:key="show_battery_percentage"
-            android:title="@string/show_battery_percentage_title"
-            android:summary="@string/show_battery_percentage_summary"
-            android:defaultValue="false" />
-
-        <CheckBoxPreference
                 android:key="adaptive_backlight"
                 android:title="@string/adaptive_backlight_title"
                 android:summary="@string/adaptive_backlight_summary"

@@ -74,7 +74,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String KEY_BATTERY_LIGHT = "battery_light";
     private static final String KEY_WAKE_WHEN_PLUGGED_OR_UNPLUGGED = "wake_when_plugged_or_unplugged";
     private static final String KEY_AUTO_ADJUST_TOUCH = "auto_adjust_touch";
-    private static final String KEY_SHOW_BATTERY_PERCENTAGE = "show_battery_percentage";
 
     private static final int DLG_GLOBAL_CHANGE_WARNING = 1;
 
@@ -92,8 +91,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private Preference mScreenSaverPreference;
 
     private CheckBoxPreference mHighTouchSensitivity;
-
-    private CheckBoxPreference mShowBatteryPercentage;
 
     private CheckBoxPreference mAdaptiveBacklight;
 
@@ -148,10 +145,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             getPreferenceScreen().removePreference(mHighTouchSensitivity);
             mHighTouchSensitivity = null;
         }
-
-        mShowBatteryPercentage = (CheckBoxPreference) findPreference(KEY_SHOW_BATTERY_PERCENTAGE);
-        final int showBattery = Settings.System.getInt(resolver, "status_bar_show_battery_percent", 0);
-        mShowBatteryPercentage.setChecked(showBattery == 1);
 
         mAdaptiveBacklight = (CheckBoxPreference) findPreference(KEY_ADAPTIVE_BACKLIGHT);
         if (!isAdaptiveBacklightSupported()) {
@@ -427,10 +420,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             return HighTouchSensitivity.setEnabled(mHighTouchSensitivity.isChecked());
         } else if (preference == mAdaptiveBacklight) {
             return AdaptiveBacklight.setEnabled(mAdaptiveBacklight.isChecked());
-        } else if (preference == mShowBatteryPercentage) {
-            return Settings.System.putInt(getActivity().getContentResolver(),
-                    "status_bar_show_battery_percent",
-                    mShowBatteryPercentage.isChecked() ? 1 : 0);
         } else if (preference == mWakeWhenPluggedOrUnplugged) {
             Settings.Global.putInt(getContentResolver(),
                     Settings.Global.WAKE_WHEN_PLUGGED_OR_UNPLUGGED,

@@ -19,10 +19,6 @@
     <string name="auto_adjust_touch_title">High touch sensitivity</string>
     <string name="auto_adjust_touch_summary">"Increase the screen's sensitivity so you can touch it while wearing gloves"</string>
 
-    <!-- Show battery percentage -->
-    <string name="show_battery_percentage_title">Show battery percentage</string>
-    <string name="show_battery_percentage_summary">Overlay percentage on the battery icon in the status bar</string>
-
     <!-- Wi-Fi region code -->
     <string name="wifi_setting_countrycode_title">Wi-Fi region code</string>
     <!-- Wi-Fi settings screen, setting summary for setting the wifi frequency band [CHAR LIMIT=50]-->
