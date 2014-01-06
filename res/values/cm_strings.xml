@@ -300,6 +300,7 @@
     <string name="lockscreen_widgets_category_title">Widgets</string>
     <string name="lockscreen_maximize_widgets_title">Maximize widgets</string>
     <string name="lockscreen_maximize_widgets_summary">Expand widgets when the screen is turned on</string>
+    <string name="lockscreen_enable_camera_title">Camera widget</string>
 
     <!-- Safe headset volume restore checkbox -->
     <string name="safe_headset_volume_title">Safe headset volume</string>
@@ -560,9 +561,6 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
 
     <!-- Memory Management -->
     <string name="memory_management_title">Memory management</string>
-    <!-- zRam -->
-    <string name="pref_zram_title">zRam</string>
-    <string name="pref_zram_summary">Compress memory for increased virtual capacity (requires reboot)</string>
     <!-- KSM -->
     <string name="pref_ksm_title">Kernel samepage merging</string>
     <string name="pref_ksm_summary">KSM reduces physical memory requirements and improves performance</string>
