@@ -288,7 +288,7 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
             }
         }
         mEnableTerminal = findAndInitCheckboxPref(ENABLE_TERMINAL);
-        if (!isPackageInstalled(getActivity(), TERMINAL_APP_PACKAGE)) {
+        if (!Utils.isPackageInstalled(getActivity(), TERMINAL_APP_PACKAGE)) {
             debugDebuggingCategory.removePreference(mEnableTerminal);
             mEnableTerminal = null;
         }
@@ -315,7 +315,7 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
             disableForUser(mQuickBoot);
         }
 
-        if (!isPackageInstalled(QUICKBOOT_PACKAGE_NAME)) {
+        if (!Utils.isPackageInstalled(getActivity(), QUICKBOOT_PACKAGE_NAME)) {
             removePreference(mQuickBoot);
         }
 
@@ -1740,14 +1740,6 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
                 }
             }
             return null;
-        }
-    }
-
-    private static boolean isPackageInstalled(Context context, String packageName) {
-        try {
-            return context.getPackageManager().getPackageInfo(packageName, 0) != null;
-        } catch (NameNotFoundException e) {
-            return false;
         }
     }
 }
