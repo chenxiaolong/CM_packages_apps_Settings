@@ -536,8 +536,19 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <!-- Settings main menu category heading. Interface (Launcher, Themes, System). [CHAR LIMIT=40] -->
     <string name="header_category_interface">Personalization</string>
 
-    <!-- Themes settings -->
+    <!-- Themes Settings -->
+    <!-- Settings main menu entry -->
     <string name="themes_settings_title">Themes</string>
+
+    <!-- The following are entries under the themes menu -->
+    <string name="themepacks_settings_title">Theme Packs</string>
+    <string name="styles_settings_title">Styles</string>
+    <string name="icons_settings_title">Icons</string>
+    <string name="fonts_settings_title">Fonts</string>
+    <string name="wallpaper_settings_title">Wallpapers</string>
+    <string name="lockscreen_wallpaper_settings_title">Lockscreen Wallpapers</string>
+    <string name="bootanim_settings_title">Boot Animations</string>
+    <string name="soundpack_settings_title">Sound Packs</string>
 
     <!-- Performance settings -->
     <string name="performance_settings_title">Performance</string>
@@ -611,6 +622,8 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
 
     <!-- Launches Dev Tools -->
     <string name="development_tools_title">Launch Tools</string>
+    <!-- Whether to allow mock SMS -->
+    <string name="allow_mock_sms">Allow mock SMS</string>
 
     <!-- Privacy Settings Header item -->
     <string name="privacy_settings_cyanogenmod_title">Privacy</string>
@@ -828,6 +841,7 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="lockscreen_buttons_playpause">Play/Pause music</string>
     <string name="lockscreen_buttons_toggle_sound">Toggle sound</string>
     <string name="lockscreen_buttons_sleep">Go to sleep</string>
+    <string name="lockscreen_enable_modlock_title">Custom lock screen</string>
 
     <!-- Navigation Bar -->
     <string name="navigation_bar_category">Navigation bar</string>
