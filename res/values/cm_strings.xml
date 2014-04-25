@@ -290,7 +290,7 @@
     <string name="unlock_camera_unlock_summary">Pressing the camera button unlocks the device</string>
     <string name="unlock_quick_unlock_control_title">Quick unlock</string>
     <string name="unlock_quick_unlock_control_summary">Unlock automatically when the correct PIN/password is entered</string>
-    <string name="unlock_buttons_disabled_by_security">Lockscreen is secure</string>
+    <string name="unlock_buttons_disabled_by_security">Lock screen is secure</string>
 
     <!-- Slide lock delay -->
     <string name="delay_and_timeout_title">Lock delay</string>
@@ -328,7 +328,7 @@
     <string name="tile_picker_summary">View, select or change the layout of the displayed tiles</string>
     <string name="tile_choose_title">Choose a tile</string>
     <string name="title_qs_small_icons">Show smaller tiles</string>
-    <string name="summary_qs_small_icons">Use smaller tiles to increase the number of colums</string>
+    <string name="summary_qs_small_icons">Use smaller tiles to increase the number of columns</string>
 
     <string name="title_tile_airplane">Airplane mode</string>
     <string name="title_tile_battery">Battery stats</string>
@@ -1196,4 +1196,7 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="voice_wakeup_activity_title">Activity to launch</string>
     <string name="voice_wakeup_default_activity">Google Now</string>
 
+    <!-- Set Subscription screen: label no sim -->
+    <string name="sub_no_sim">No SIM</string>
+    <string name="multi_sim_entry_format" translatable="false"><xliff:g id="operator">%1$s</xliff:g>-<xliff:g id="index">%2$d</xliff:g></string>
 </resources>
