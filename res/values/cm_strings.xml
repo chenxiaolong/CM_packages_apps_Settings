@@ -475,6 +475,10 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="root_access_adb">ADB only</string>
     <string name="root_access_all">Apps and ADB</string>
 
+    <!-- Settings checkbox for updating CM recovery on boot -->
+    <string name="update_recovery_title">Update CM recovery</string>
+    <string name="update_recovery_summary">Update recovery when installing system updates</string>
+
     <string name="ok">OK</string>
 
     <!-- Quiet hours -->
@@ -555,7 +559,7 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="styles_settings_title">Styles</string>
     <string name="icons_settings_title">Icons</string>
     <string name="fonts_settings_title">Fonts</string>
-    <string name="wallpaper_settings_title">Wallpapers</string>
+    <string name="wallpaper_settings_title_cm">Wallpapers</string>
     <string name="lockscreen_wallpaper_settings_title">Lock screen wallpapers</string>
     <string name="bootanim_settings_title">Boot animations</string>
     <string name="soundpack_settings_title">Sound packs</string>
