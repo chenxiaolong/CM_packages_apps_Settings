@@ -262,6 +262,7 @@
   <string name="title_dynamic_alarm">Будильник</string>
   <string name="title_dynamic_bugreport">Отчёт об ошибке</string>
   <string name="title_dynamic_dock_battery">Батарея док-станции</string>
+  <string name="title_dynamic_equalizer">Эквалайзер</string>
   <string name="title_dynamic_ime">Выбор способа ввода</string>
   <string name="title_dynamic_usbtether">USB-модем</string>
   <string name="title_dynamic_wifi">Дублирование экрана</string>
@@ -344,6 +345,8 @@
   <string name="root_access_apps">Только для приложений</string>
   <string name="root_access_adb">Только для ADB</string>
   <string name="root_access_all">Для приложений и ADB</string>
+  <string name="update_recovery_title">Обновлять режим восстановления</string>
+  <string name="update_recovery_summary">Перезаписывать раздел Recovery при установке обновлений</string>
   <string name="ok">OK</string>
   <string name="quiet_hours_title">Тихие часы</string>
   <string name="quiet_hours_summary">Настройка времени, когда устройство должно быть тихим</string>
