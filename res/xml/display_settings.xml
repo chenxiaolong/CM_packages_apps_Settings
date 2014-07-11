@@ -93,7 +93,7 @@
 
             <PreferenceScreen
                 android:key="notification_pulse"
-                android:title="@string/notification_pulse_title"
+                android:title="@string/notification_light_title"
                 android:fragment="com.android.settings.notificationlight.NotificationLightSettings" />
 
             <PreferenceScreen
@@ -112,6 +112,12 @@
                 android:key="adaptive_backlight"
                 android:title="@string/adaptive_backlight_title"
                 android:summary="@string/adaptive_backlight_summary"
+                android:defaultValue="true" />
+
+           <CheckBoxPreference
+                android:key="color_enhancement"
+                android:title="@string/color_enhancement_title"
+                android:summary="@string/color_enhancement_summary"
                 android:defaultValue="true" />
 
             <CheckBoxPreference

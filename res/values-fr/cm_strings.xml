@@ -79,7 +79,7 @@
   <string name="profile_volumeoverrides_title">Volumes</string>
   <string name="connection_state_disabled">Inactif</string>
   <string name="connection_state_enabled">Actif</string>
-  <string name="volume_override_summary">Actuel</string>
+  <string name="volume_override_summary">Défini à %1$s/%2$s</string>
   <string name="profile_profiles_manage">Profils</string>
   <string name="profile_profile_manage">Gérer le profil</string>
   <string name="profile_appgroups_manage">Groupes d\'applications</string>
@@ -146,7 +146,6 @@
   <string name="icon_picker_pack_title">Jeux d\'icônes</string>
   <string name="display_lights_settings_title">Affichage et voyant</string>
   <string name="lights_category_title">Luminosité</string>
-  <string name="notification_pulse_title">Voyant de notification</string>
   <string name="notification_light_general_title">Général</string>
   <string name="notification_light_applist_title">Applications</string>
   <string name="notification_light_phonelist_title">Téléphone</string>
@@ -158,6 +157,8 @@
   <string name="notification_light_voicemail_title">Messagerie vocale</string>
   <string name="adaptive_backlight_title">Rétroéclairage adaptatif</string>
   <string name="adaptive_backlight_summary">Ajuster dynamiquement la luminosité du rétroéclairage de l\'écran pour maximiser l\'autonomie tout en conservant une bonne lisibilité</string>
+  <string name="color_enhancement_title">Amélioration des couleurs</string>
+  <string name="color_enhancement_summary">Améliorer dynamiquement la couleur d\'affichage</string>
   <string name="wake_when_plugged_or_unplugged_title">Réveiller au branchement</string>
   <string name="wake_when_plugged_or_unplugged_summary">Allumez l\'écran lors du branchement ou du débranchement de la source d\'alimentation</string>
   <string name="screen_animation_off_title">Animation à l\'extinction de l\'écran</string>
@@ -191,9 +192,7 @@
   <string name="lockpattern_settings_enable_error_path_title">Afficher l\'erreur de schéma</string>
   <string name="lockpattern_settings_enable_dots_title">Afficher les points</string>
   <string name="screen_security_category">Verrouillage de l\'écran</string>
-  <string name="screen_security_title">Écran de verrouillage</string>
-  <string name="screen_security_summary">Options de l\'écran de verrouillage : style, délais et options diverses</string>
-  <string name="additional_options_title">Options supplémentaires</string>
+  <string name="screen_security_summary">Afficher ou modifier les paramètres de sécurité de l\'écran de verrouillage</string>
   <string name="unlock_menu_unlock_title">Déverrouillage par bouton Menu</string>
   <string name="unlock_menu_unlock_summary">Déverrouiller l\'écran en appuyant sur le bouton Menu</string>
   <string name="unlock_home_unlock_title">Déverrouillage par bouton Accueil</string>
@@ -203,20 +202,6 @@
   <string name="unlock_quick_unlock_control_title">Déverrouillage rapide</string>
   <string name="unlock_quick_unlock_control_summary">Déverrouillage automatique lorsque le mot de passe ou le code PIN est correct</string>
   <string name="unlock_buttons_disabled_by_security">L\'écran de verrouillage est sécurisé</string>
-  <string name="delay_and_timeout_title">Délai de verrouillage</string>
-  <string name="slide_lock_delay_title">Modifier les délais</string>
-  <string name="slide_lock_timeout_delay_title">Extinction de l\'écran</string>
-  <string name="slide_lock_screenoff_delay_title">Extinction manuelle</string>
-  <string name="slide_lock_delay_none">Aucun</string>
-  <string name="slide_lock_delay_1s">1 seconde</string>
-  <string name="slide_lock_delay_5s">5 secondes</string>
-  <string name="slide_lock_delay_10s">10 secondes</string>
-  <string name="slide_lock_delay_15s">15 secondes</string>
-  <string name="slide_lock_delay_30s">30 secondes</string>
-  <string name="slide_lock_delay_1m">1 minute</string>
-  <string name="slide_lock_delay_5m">5 minutes</string>
-  <string name="slide_lock_delay_10m">10 minutes</string>
-  <string name="slide_lock_delay_30m">30 minutes</string>
   <string name="lockscreen_widgets_category_title">Widgets</string>
   <string name="lockscreen_maximize_widgets_title">Maximiser les widgets</string>
   <string name="lockscreen_maximize_widgets_summary">Afficher les widgets maximisés au déverrouillage</string>
@@ -231,12 +216,22 @@
   <string name="tile_choose_title">Choisir un raccourci</string>
   <string name="title_qs_small_icons">Afficher de plus petits racourcis</string>
   <string name="summary_qs_small_icons">Utiliser de plus petits racourcis pour augmenter le nombre de colones</string>
+  <string name="category_heads_up">Notifications flottantes</string>
+  <string name="summary_heads_up_enabled">Les notifications flottantes sont activées</string>
+  <string name="summary_heads_up_disabled">Les notifications flottantes sont désactivées</string>
+  <string name="add_heads_up_package">Ajouter une application</string>
+  <string name="add_heads_up_dnd_summary">Ne pas afficher de notifications flottantes dans ces applications</string>
+  <string name="add_heads_up_blacklist_summary">Ne pas afficher les notifications flottantes de ces applications</string>
+  <string name="heads_up_dnd_title">Ne pas déranger</string>
+  <string name="heads_up_blacklist_title">Liste noire</string>
+  <string name="heads_up_disabled_notice">Pour permettre aux applications d\'afficher des notifications interactives dans une fenêtre pop-up sur votre écran, activez les notifications flottantes.</string>
   <string name="title_tile_airplane">Mode Avion</string>
   <string name="title_tile_battery">Batterie</string>
   <string name="title_tile_bluetooth">Bluetooth</string>
   <string name="title_tile_brightness">Luminosité</string>
   <string name="title_tile_camera">Appareil photo</string>
   <string name="title_tile_compass">Boussole</string>
+  <string name="title_tile_heads_up">Notifications flottantes</string>
   <string name="title_tile_sleep">Mise en veille</string>
   <string name="title_tile_gps">GPS</string>
   <string name="title_tile_torch">Lampe</string>
@@ -290,7 +285,6 @@
   <string name="tiles_reset_title">Réinitialiser</string>
   <string name="tiles_reset_message">Supprimer tous les raccourcis de paramètres et revenir à la configuration d\'origine\u00A0?</string>
   <string name="auto_brightness_setup_title">Luminosité automatique</string>
-  <string name="auto_brightness_adjustment_title">Ajustement de la luminosité</string>
   <string name="auto_brightness_twilight_adjustment">S\'adapter au lever et au coucher du soleil</string>
   <string name="light_sensor_current_value">Valeur actuelle du capteur de lumière\u00A0: <xliff:g id="light_level">%d</xliff:g> lux</string>
   <string name="auto_brightness_dialog_title">Niveaux d\'éclairage automatique</string>
@@ -343,7 +337,7 @@ Des options supplémentaires sont disponibles en appuyant longtemps sur une lign
   <string name="app_security_title">Sécurité des applications</string>
   <string name="root_access">Accès root</string>
   <string name="root_access_warning_title">Autoriser l\'accès root\u00A0?</string>
-  <string name="root_access_warning_message">Autoriser l\'accès root aux applications peut être très dangereux et corrompre la sécurité et la stabilité de votre appareil\u00A0!</string>
+  <string name="root_access_warning_message">Permettre aux applications de demander l\'accès root est très dangereux et peut compromettre la sécurité de votre système !</string>
   <string name="root_access_none">Désactivé</string>
   <string name="root_access_apps">Application uniquement</string>
   <string name="root_access_adb">ADB uniquement</string>
@@ -365,8 +359,7 @@ Des options supplémentaires sont disponibles en appuyant longtemps sur une lign
   <string name="quiet_hours_dim_summary">Désactiver le voyant de notification</string>
   <string name="quiet_hours_haptic">Retour haptique</string>
   <string name="quiet_hours_haptic_summary">Désactiver le retour haptique</string>
-  <string name="quiet_hours_active_from">Actif de</string>
-  <string name="quiet_hours_active_to">jusqu\'à</string>
+  <string name="quiet_hours_active_period">Activé entre <xliff:g id="start">%1$s</xliff:g> et <xliff:g id="end">%2$s</xliff:g></string>
   <string name="quiet_hours_ringer_allow_all">Sonner pour tous les appelants</string>
   <string name="quiet_hours_ringer_allow_contacts">Sonner pour tous les contacts</string>
   <string name="quiet_hours_ringer_allow_starred">Sonner pour les contacts favoris</string>
@@ -495,13 +488,8 @@ Des options supplémentaires sont disponibles en appuyant longtemps sur une lign
   <string name="gamma_tuning_contrast">Contraste</string>
   <string name="gamma_tuning_brightness">Luminosité</string>
   <string name="gamma_tuning_saturation">Saturation</string>
-  <string name="headset_category_title">Casque audio</string>
   <string name="headset_connect_player_title">Lancer lecteur de musique</string>
   <string name="headset_connect_player_summary">Lancer le lecteur de musique par défaut au branchement du casque</string>
-  <string name="more_device_controls_title">Plus\u2026</string>
-  <string name="more_device_settings_title">Autres options de l\'appareil</string>
-  <string name="sensors_motors_title">Capteurs &amp; vibreur</string>
-  <string name="display_calibration_title">Calibrage de l\'écran</string>
   <string name="adb_notify">Notification débogage USB</string>
   <string name="adb_notify_summary">Afficher une notification lorsque le débogage USB est actif</string>
   <string name="adb_over_network">ADB par réseau</string>
@@ -548,7 +536,6 @@ Des options supplémentaires sont disponibles en appuyant longtemps sur une lign
   <string name="lockscreen_target_reset_message">Supprimer tous les raccourcis et revenir à la configuration d\'origine\u00A0?</string>
   <string name="lockscreen_target_empty">Vide</string>
   <string name="lockscreen_target_edit_title">Modifier le raccourci</string>
-  <string name="lockscreen_target_edit_msg">Sélectionner l\'application ou l\'activité et l\'icône associée</string>
   <string name="picker_activities">Activités</string>
   <string name="select_custom_app_title">Sélectionner l\'application</string>
   <string name="select_custom_activity_title">Sélectionner l\'activité</string>
@@ -699,7 +686,7 @@ Des options supplémentaires sont disponibles en appuyant longtemps sur une lign
   <string name="status_bar_signal_style_text">Texte</string>
   <string name="status_bar_toggle_brightness">Réglage de la luminosité</string>
   <string name="status_bar_toggle_brightness_summary">Ajuster la luminosité en faisant glisser sur la barre d\'état</string>
-  <string name="status_bar_toggle_info">La luminosité automatique est activée</string>
+  <string name="status_bar_toggle_info">Non disponible lorsque la luminosité automatique est activée</string>
   <string name="status_bar_notif_count_title">Afficher le compteur de notification</string>
   <string name="status_bar_notif_count_summary">Afficher le nombre de notifications en attente</string>
   <string name="status_bar_double_tap_to_sleep_title">Double appui pour mettre en veille</string>
@@ -736,6 +723,7 @@ Des options supplémentaires sont disponibles en appuyant longtemps sur une lign
   <string name="gestures_down_spen_title_head">Balayage vers le bas</string>
   <string name="gestures_long_spen_title_head">Appui long</string>
   <string name="gestures_double_spen_title_head">Double appui</string>
+  <string name="gestures_settings_header_title">Gestes</string>
   <string name="gestures_action_empty">Aucune action</string>
   <string name="gestures_action_home">Accueil</string>
   <string name="gestures_action_back">Retour</string>
@@ -881,4 +869,8 @@ Des options supplémentaires sont disponibles en appuyant longtemps sur une lign
   <string name="autoperf_title">Activer les profiles par application</string>
   <string name="autoperf_summary">Choisir automatiquement le profil de performance le plus approprié pour les différentes applications</string>
   <string name="graphics_title">Graphismes et rendu</string>
+  <string name="menu_hidden_apps_delete">Réinitialiser</string>
+  <string name="menu_hidden_apps_reset_lock">Réinitialiser le modèle de verrouillage</string>
+  <string name="protected_apps">Applications protégées</string>
+  <string name="saving_protected_components">Enregistrement de l\'état du composant\u2026</string>
 </resources>

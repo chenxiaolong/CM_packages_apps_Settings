@@ -19,6 +19,7 @@ package com.android.settings;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.OnAccountsUpdateListener;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -32,11 +33,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.nfc.NfcAdapter;
@@ -53,10 +53,17 @@ import android.text.TextUtils;
 import android.telephony.MSimTelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -65,7 +72,6 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.android.internal.util.ArrayUtils;
-import com.android.settings.ActivityPicker;
 import com.android.settings.accessibility.AccessibilitySettings;
 import com.android.settings.accessibility.CaptionPropertiesFragment;
 import com.android.settings.accessibility.ToggleAccessibilityServicePreferenceFragment;
@@ -80,6 +86,8 @@ import com.android.settings.bluetooth.BluetoothEnabler;
 import com.android.settings.bluetooth.BluetoothSettings;
 import com.android.settings.cyanogenmod.ButtonSettings;
 import com.android.settings.cyanogenmod.LockscreenInterface;
+import com.android.settings.cyanogenmod.NavBar;
+import com.android.settings.cyanogenmod.NavRing;
 import com.android.settings.cyanogenmod.PerformanceSettings;
 import com.android.settings.cyanogenmod.StatusBar;
 import com.android.settings.cyanogenmod.NotificationDrawer;
@@ -87,6 +95,7 @@ import com.android.settings.cyanogenmod.superuser.PolicyNativeFragment;
 import com.android.settings.deviceinfo.Memory;
 import com.android.settings.deviceinfo.UsbSettings;
 import com.android.settings.fuelgauge.PowerUsageSummary;
+import com.android.settings.headsup.HeadsUpSettings;
 import com.android.settings.inputmethod.InputMethodAndLanguageSettings;
 import com.android.settings.inputmethod.KeyboardLayoutPickerFragment;
 import com.android.settings.inputmethod.SpellCheckersSettings;
@@ -103,6 +112,11 @@ import com.android.settings.profiles.AppGroupConfig;
 import com.android.settings.profiles.ProfileConfig;
 import com.android.settings.profiles.ProfileEnabler;
 import com.android.settings.profiles.ProfilesSettings;
+import com.android.settings.quicksettings.QuickSettingsTiles;
+import com.android.settings.search.SettingsAutoCompleteTextView;
+import com.android.settings.search.SearchPopulator;
+import com.android.settings.search.SettingsSearchFilterAdapter;
+import com.android.settings.search.SettingsSearchFilterAdapter.SearchInfo;
 import com.android.settings.tts.TextToSpeechSettings;
 import com.android.settings.users.UserSettings;
 import com.android.settings.voicewakeup.VoiceWakeupEnabler;
@@ -123,7 +137,8 @@ import java.util.List;
  * Top-level settings activity to handle single pane and double pane UI layout.
  */
 public class Settings extends PreferenceActivity
-        implements ButtonBarHandler, OnAccountsUpdateListener {
+        implements ButtonBarHandler, OnAccountsUpdateListener,
+        OnItemClickListener {
 
     private static final String LOG_TAG = "Settings";
 
@@ -139,6 +154,7 @@ public class Settings extends PreferenceActivity
     private static final String KEY_SCREEN_GESTURE_SETTINGS = "touch_screen_gesture_settings";
 
     private static final String EXTRA_UI_OPTIONS = "settings:ui_options";
+    private static final String EXTRA_DISABLE_SEARCH = "settings:disable_search";
 
     private static final String SAVE_KEY_CURRENT_HEADER = "com.android.settings.CURRENT_HEADER";
     private static final String SAVE_KEY_PARENT_HEADER = "com.android.settings.PARENT_HEADER";
@@ -149,6 +165,8 @@ public class Settings extends PreferenceActivity
     static final int DIALOG_ONLY_ONE_HOME = 1;
 
     private static boolean sShowNoHomeNotice = false;
+
+    private boolean mDisableSearchIcon = false;
 
     private String mFragmentClass;
     private int mTopLevelHeaderId;
@@ -202,6 +220,9 @@ public class Settings extends PreferenceActivity
     private AuthenticatorHelper mAuthenticatorHelper;
     private Header mLastHeader;
     private boolean mListeningToAccountUpdates;
+    private ActionBar mActionBar;
+    private MenuItem mSearchItem;
+    private SettingsAutoCompleteTextView mSearchBar;
 
     private boolean mBatteryPresent = true;
     private BroadcastReceiver mBatteryInfoReceiver = new BroadcastReceiver() {
@@ -221,9 +242,54 @@ public class Settings extends PreferenceActivity
     };
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.settings_search, menu);
+        mSearchItem = menu.findItem(R.id.action_search);
+        final InputMethodManager imm =
+                (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        mSearchBar = (SettingsAutoCompleteTextView) mSearchItem.getActionView();
+        mSearchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                mSearchBar.clearFocus();
+                mSearchBar.setText("");
+                imm.hideSoftInputFromWindow(mSearchBar.getWindowToken(), 0);
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                mSearchBar.requestFocus();
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                        InputMethodManager.HIDE_IMPLICIT_ONLY);
+                return true;
+            }
+        });
+
+        ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(
+                ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.MATCH_PARENT);
+
+        mSearchBar.setLayoutParams(layoutParams);
+        mSearchBar.setHint(R.string.settings_search_autocompleteview_hint);
+        mSearchBar.setThreshold(1);
+        mSearchBar.setSingleLine(true);
+        mSearchBar.setOnItemClickListener(this);
+        mSearchBar.setAdapter(new SettingsSearchFilterAdapter(this));
+
+        mSearchItem.setVisible(!mDisableSearchIcon);
+        return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (getIntent().hasExtra(EXTRA_UI_OPTIONS)) {
             getWindow().setUiOptions(getIntent().getIntExtra(EXTRA_UI_OPTIONS, 0));
+        }
+
+        if (getIntent().hasExtra(EXTRA_DISABLE_SEARCH)) {
+            mDisableSearchIcon = getIntent().getBooleanExtra(EXTRA_DISABLE_SEARCH, false);
         }
 
         mAuthenticatorHelper = new AuthenticatorHelper();
@@ -271,6 +337,9 @@ public class Settings extends PreferenceActivity
             getActionBar().setDisplayHomeAsUpEnabled(false);
             getActionBar().setHomeButtonEnabled(false);
         }
+
+        mActionBar = getActionBar();
+        mActionBar.setDisplayShowCustomEnabled(true);
     }
 
     @Override
@@ -289,7 +358,6 @@ public class Settings extends PreferenceActivity
     @Override
     public void onResume() {
         super.onResume();
-
         mDevelopmentPreferencesListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
             @Override
             public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
@@ -309,8 +377,25 @@ public class Settings extends PreferenceActivity
     }
 
     @Override
+    public void onBackPressed() {
+        if (mSearchBar != null && mSearchBar.hasFocus()) {
+            mSearchBar.clearFocus();
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
+
+        if (mSearchBar != null) {
+            mSearchBar.clearFocus();
+        }
+
+        if (mSearchItem != null) {
+            mSearchItem.collapseActionView();
+        }
 
         unregisterReceiver(mBatteryInfoReceiver);
 
@@ -322,6 +407,13 @@ public class Settings extends PreferenceActivity
         mDevelopmentPreferences.unregisterOnSharedPreferenceChangeListener(
                 mDevelopmentPreferencesListener);
         mDevelopmentPreferencesListener = null;
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mSearchBar.clearFocus();
+        mSearchItem.collapseActionView();
     }
 
     @Override
@@ -570,6 +662,22 @@ public class Settings extends PreferenceActivity
                 PrintSettingsFragment.class.getName().equals(fragmentName) ||
                 PrintServiceSettingsFragment.class.getName().equals(fragmentName)) {
             intent.putExtra(EXTRA_UI_OPTIONS, ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW);
+            // Should also disable the search options here to not confuse
+            // the end user
+            intent.putExtra(EXTRA_DISABLE_SEARCH, true);
+        } else if (ApplicationSettings.class.getName().equals(fragmentName) ||
+                DataUsageSummary.class.getName().equals(fragmentName) ||
+                QuickSettingsTiles.class.getName().equals(fragmentName) ||
+                HeadsUpSettings.class.getName().equals(fragmentName) ||
+                PowerUsageSummary.class.getName().equals(fragmentName) ||
+                ThemeSettings.class.getName().equals(fragmentName) ||
+                ManageApplications.class.getName().equals(fragmentName) ||
+                NavBar.class.getName().equals(fragmentName) ||
+                NavRing.class.getName().equals(fragmentName) ||
+                PaymentSettings.class.getName().equals(fragmentName) ||
+                WifiDisplaySettings.class.getName().equals(fragmentName)) {
+            // Should force disable search options
+            intent.putExtra(EXTRA_DISABLE_SEARCH, true);
         }
         intent.setClass(this, SubSettings.class);
     }
@@ -848,6 +956,32 @@ public class Settings extends PreferenceActivity
     @Override
     public Button getNextButton() {
         return super.getNextButton();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
+        SearchInfo info = (SearchInfo) parent.getItemAtPosition(position);
+        mSearchBar.setText("");
+        mSearchBar.clearFocus();
+        mSearchItem.collapseActionView();;
+
+        if (info.level == 0) {
+            Bundle args = info.header.fragmentArguments;
+            if (args == null) {
+                args = info.header.fragmentArguments = new Bundle();
+            }
+            if (info.key != null && !args.containsKey(SearchPopulator.EXTRA_PREF_KEY)) {
+                args.putString(SearchPopulator.EXTRA_PREF_KEY, info.key);
+            }
+            onHeaderClick(info.header, 0);
+        } else {
+            Intent i = new Intent(this, SubSettings.class);
+            i.putExtra(EXTRA_SHOW_FRAGMENT, info.fragment);
+            i.putExtra(EXTRA_SHOW_FRAGMENT_TITLE, info.parentTitle);
+            i.putExtra(SearchPopulator.EXTRA_PREF_KEY, info.key);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(i);
+        }
     }
 
     public static class NoHomeDialogFragment extends DialogFragment {
@@ -1149,6 +1283,7 @@ public class Settings extends PreferenceActivity
 
     @Override
     public boolean onPreferenceStartFragment(PreferenceFragment caller, Preference pref) {
+        mSearchItem.collapseActionView();
         // Override the fragment title for Wallpaper settings
         int titleRes = pref.getTitleRes();
         if (pref.getFragment().equals(OwnerInfoSettings.class.getName())
