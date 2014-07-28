@@ -760,6 +760,10 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <!-- tap-to-wake -->
     <string name="double_tap_to_wake_title">Double-tap to wake</string>
 
+    <!-- Proximity wake -->
+    <string name="proximity_wake_title">Proximity wake-up</string>
+    <string name="proximity_wake_summary">Use proximity sensor to help decide whether to wake device up</string>
+
     <!-- Quick access ribbon -->
     <string name="category_quick_access">Quick Access ribbon</string>
     <string name="title_quick_access">Show in drawer</string>
@@ -1278,4 +1282,10 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="enable_adb_cm">Android debugging</string>
     <!-- Setting checkbox summary for Whether to enable Android debugging support on the phone -->
     <string name="enable_adb_summary_cm">Enable the Android Debug Bridge (adb) interface</string>
+
+    <string name="spam_added_title">Added %1$s</string>
+    <string name="spam_last_blocked_title">Last blocked %1$s</string>
+    <string name="block_notifications_title">Filter notifications</string>
+    <string name="no_filters_title">No filters set</string>
+
 </resources>
