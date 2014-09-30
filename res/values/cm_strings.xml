@@ -15,10 +15,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Glove mode / high touch sensitivity -->
-    <string name="auto_adjust_touch_title">High touch sensitivity</string>
-    <string name="auto_adjust_touch_summary">"Increase the screen's sensitivity so you can touch it while wearing gloves"</string>
-
     <!-- Wi-Fi region code -->
     <string name="wifi_setting_countrycode_title">Wi-Fi region code</string>
     <!-- Wi-Fi settings screen, setting summary for setting the wifi frequency band [CHAR LIMIT=50]-->
@@ -718,10 +714,6 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <!-- Launch music player when headset is connected -->
     <string name="headset_connect_player_title">Launch music app</string>
     <string name="headset_connect_player_summary">Launch the default music app when headset is connected</string>
-
-    <!-- App moving settings -->
-    <string name="app_moving">App moving</string>
-    <string name="app_moving_summary">Enable the moving of applications to external storage (reboot after changing setting)</string>
 
     <!-- Setting checkbox summary for displaying USB debugging notification -->
     <string name="adb_notify">USB debugging notify</string>

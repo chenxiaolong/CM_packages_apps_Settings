@@ -73,8 +73,6 @@ import android.widget.TextView;
 
 import dalvik.system.VMRuntime;
 
-import org.cyanogenmod.hardware.AppMovingSettings;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -163,8 +161,6 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
 
     private static final String KILL_APP_LONGPRESS_BACK = "kill_app_longpress_back";
 
-    private static final String APP_MOVING = "app_moving";
-
     private static final String TAG_CONFIRM_ENFORCE = "confirm_enforce";
 
     private static final String PACKAGE_MIME_TYPE = "application/vnd.android.package-archive";
@@ -234,7 +230,6 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
 
     private CheckBoxPreference mShowAllANRs;
     private CheckBoxPreference mKillAppLongpressBack;
-    private CheckBoxPreference mAppMoving;
 
     private ListPreference mRootAccess;
     private Object mSelectedRootValue;
@@ -377,9 +372,6 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
         mResetCbPrefs.add(mShowAllANRs);
 
         mKillAppLongpressBack = findAndInitCheckboxPref(KILL_APP_LONGPRESS_BACK);
-
-        mAppMoving = findAndInitCheckboxPref(APP_MOVING);
-        mAppMoving.setChecked(AppMovingSettings.isEnabled());
 
         Preference selectRuntime = findPreference(SELECT_RUNTIME_KEY);
         if (selectRuntime != null) {
@@ -548,8 +540,6 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
         }
 
         updateKillAppLongpressBackOptions();
-
-        updateAppMovingOptions();
     }
 
     void updateCheckBox(CheckBoxPreference checkBox, boolean value) {
@@ -613,7 +603,6 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
         updateRootAccessOptions();
         updateAdvancedRebootOptions();
         updateDevelopmentShortcutOptions();
-        updateAppMovingOptions();
         updateUpdateRecoveryOptions();
     }
 
@@ -816,14 +805,6 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
     private void updateKillAppLongpressBackOptions() {
         mKillAppLongpressBack.setChecked(Settings.Secure.getInt(
             getActivity().getContentResolver(), Settings.Secure.KILL_APP_LONGPRESS_BACK, 0) != 0);
-    }
-
-    private void writeAppMovingOptions() {
-        AppMovingSettings.setEnabled(mAppMoving.isChecked());
-    }
-
-    private void updateAppMovingOptions() {
-        mAppMoving.setChecked(AppMovingSettings.isEnabled());
     }
 
     private void updatePasswordSummary() {
@@ -1543,8 +1524,6 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
             writeDevelopmentShortcutOptions();
         } else if (preference == mKillAppLongpressBack) {
             writeKillAppLongpressBackOptions();
-        } else if (preference == mAppMoving) {
-            writeAppMovingOptions();
         } else if (preference == mUpdateRecovery) {
             writeUpdateRecoveryOptions();
         } else {

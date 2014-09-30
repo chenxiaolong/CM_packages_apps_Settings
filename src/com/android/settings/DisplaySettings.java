@@ -43,8 +43,6 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
-import android.provider.Settings.SettingNotFoundException;
-import android.util.AttributeSet;
 import android.util.Log;
 
 import android.view.WindowManagerGlobal;
@@ -59,8 +57,6 @@ import org.cyanogenmod.hardware.AdaptiveBacklight;
 import org.cyanogenmod.hardware.ColorEnhancement;
 import org.cyanogenmod.hardware.SunlightEnhancement;
 import org.cyanogenmod.hardware.TapToWake;
-
-import org.cyanogenmod.hardware.HighTouchSensitivity;
 
 import java.util.ArrayList;
 
@@ -89,7 +85,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String KEY_NOTIFICATION_PULSE = "notification_pulse";
     private static final String KEY_BATTERY_LIGHT = "battery_light";
     private static final String KEY_WAKE_WHEN_PLUGGED_OR_UNPLUGGED = "wake_when_plugged_or_unplugged";
-    private static final String KEY_AUTO_ADJUST_TOUCH = "auto_adjust_touch";
     private static final String KEY_SCREEN_ANIMATION_OFF = "screen_off_animation";
     private static final String KEY_SCREEN_ANIMATION_STYLE = "screen_animation_style";
     private static final String KEY_DISPLAY_COLOR = "color_calibration";
@@ -120,8 +115,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
 
     private ListPreference mScreenTimeoutPreference;
     private Preference mScreenSaverPreference;
-
-    private CheckBoxPreference mHighTouchSensitivity;
 
     private CheckBoxPreference mAdaptiveBacklight;
     private CheckBoxPreference mSunlightEnhancement;
@@ -208,12 +201,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         mFontSizePref = (FontDialogPreference) findPreference(KEY_FONT_SIZE);
         mFontSizePref.setOnPreferenceChangeListener(this);
         mFontSizePref.setOnPreferenceClickListener(this);
-
-        mHighTouchSensitivity = (CheckBoxPreference) findPreference(KEY_AUTO_ADJUST_TOUCH);
-        if (!isHighTouchSensitivitySupported()) {
-            getPreferenceScreen().removePreference(mHighTouchSensitivity);
-            mHighTouchSensitivity = null;
-        }
 
         PreferenceCategory advancedPrefs = (PreferenceCategory) findPreference(CATEGORY_ADVANCED);
 
@@ -592,9 +579,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
 
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-        if (preference == mHighTouchSensitivity) {
-            return HighTouchSensitivity.setEnabled(mHighTouchSensitivity.isChecked());
-        } else if (preference == mAdaptiveBacklight) {
+        if (preference == mAdaptiveBacklight) {
             if (mSunlightEnhancement != null &&
                     SunlightEnhancement.isAdaptiveBacklightRequired()) {
                 mSunlightEnhancement.setEnabled(mAdaptiveBacklight.isChecked());
@@ -677,15 +662,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             }
         }
         return false;
-    }
-
-    private static boolean isHighTouchSensitivitySupported() {
-        try {
-            return HighTouchSensitivity.isSupported();
-        } catch (NoClassDefFoundError e) {
-            // Hardware abstraction framework not installed
-            return false;
-        }
     }
 
     /**

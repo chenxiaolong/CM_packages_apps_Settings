@@ -16,9 +16,6 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Glove mode / high touch sensitivity -->
-    <string name="auto_adjust_touch_title">Sensibilitat tocar alta</string>
-    <string name="auto_adjust_touch_summary">Augmentar la sensibilitat de la pantalla perquè la pugui tocar mentre duu guants</string>
     <string name="yes" msgid="4676390750360727396">"Sí"</string>
     <string name="no" msgid="6731231425810196216">"No"</string>
     <string name="create" msgid="3578857613172647409">"Crea"</string>
